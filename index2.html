@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Livro da Sabedoria</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .book-container {
+            max-width: 900px;
+            width: 100%;
+            perspective: 1000px;
+        }
+        
+        .book {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            min-height: 600px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .book::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, #ddd, #999, #ddd);
+            z-index: 10;
+        }
+        
+        .page {
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            background: #fafaf8;
+        }
+        
+        .page-left {
+            border-right: 1px solid #eee;
+            text-align: right;
+            color: #999;
+        }
+        
+        .page-right {
+            text-align: left;
+        }
+        
+        .page-number {
+            font-size: 12px;
+            color: #ccc;
+            margin-top: 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #34495e;
+            font-size: 28px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .chapter {
+            color: #7f8c8d;
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+        
+        p {
+            color: #2c3e50;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .author {
+            color: #e74c3c;
+            font-size: 18px;
+            font-style: italic;
+            margin-top: 30px;
+        }
+        
+        .quote {
+            border-left: 4px solid #3498db;
+            padding-left: 20px;
+            margin: 30px 0;
+            font-style: italic;
+            color: #34495e;
+            font-size: 16px;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        button {
+            padding: 12px 30px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background: #2980b9;
+        }
+        
+        button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+        
+        .page-indicator {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .title-page {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .book {
+                grid-template-columns: 1fr;
+            }
+            
+            .book::before {
+                display: none;
+            }
+            
+            .page-left {
+                border-right: none;
+                border-bottom: 2px solid #eee;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="book-container">
+        <div class="book">
+            <div class="page page-left" id="leftPage"></div>
+            <div class="page page-right" id="rightPage"></div>
+        </div>
+        
+        <div class="controls">
+            <button onclick="previousPage()" id="prevBtn">← Página Anterior</button>
+            <button onclick="nextPage()" id="nextBtn">Próxima Página →</button>
+        </div>
+        
+        <div class="page-indicator">
+            <span id="pageNumber">Página 1</span>
+        </div>
+    </div>
+    
+    <script>
+        const chapters = [
+            {
+                leftTitle: "O Livro da Sabedoria",
+                leftContent: `<div class="title-page"><h1>O Livro da Sabedoria</h1><p class="author">Uma jornada de autoconhecimento e crescimento pessoal</p></div>`,
+                rightTitle: "Introdução",
+                rightContent: `<p>Bem-vindo a esta jornada extraordinária. Este livro é um convite para explorar as profundezas de sua própria sabedoria e descobrir as respostas que você já carrega dentro de si.</p>`
+            },
+            {
+                leftTitle: "CAPÍTULO 1",
+                leftContent: `<h2>O Início da Jornada</h2><p>Toda grande jornada começa com um único passo. Não importa onde você esteja agora, o que importa é a decisão de se mover em direção aos seus sonhos.</p>`,
+                rightTitle: "",
+                rightContent: `<div class="quote">"O sucesso é a soma de pequenos esforços repetidos dia após dia" - Robert Collier</div><p>Cada dia oferece novas oportunidades para crescer. Quando você acorda, você tem a chance de fazer algo significativo, de impactar alguém, de mudar sua vida para melhor.</p><p>A jornada de mil milhas começa com um único passo. Não espere pelo momento perfeito, porque ele nunca chegará. O momento perfeito é agora.</p>`
+            },
+            {
+                leftTitle: "CAPÍTULO 2",
+                leftContent: `<h2>Conhecendo a Si Mesmo</h2><p>Antes de poder mudar o mundo ao seu redor, você precisa se conhecer profundamente. Isso significa entender seus valores, seus medos e suas aspirações.</p>`,
+                rightTitle: "",
+                rightContent: `<p>Quando você se conhece, você toma decisões melhores. Quando você compreende suas forças e fraquezas, pode trabalhar de forma mais eficaz com outras pessoas.</p><p>Pergunte-se: Quem sou eu realmente? O que me faz feliz? Qual é meu propósito nesta vida?</p><div class="quote">"O autoconhecimento é o começo de toda a sabedoria" - Aristóteles</div>`
+            },
+            {
+                leftTitle: "CAPÍTULO 3",
+                leftContent: `<h2>Superando os Limites</h2><p>Os únicos limites que existem são aqueles que você acredita que existem. Sua mente é mais poderosa do que você imagina.</p>`,
+                rightTitle: "",
+                rightContent: `<p>Quando você decide que algo é possível, seu cérebro começa a trabalhar para encontrar maneiras de tornar isso real. Isso é chamado de reticular, e é uma das ferramentas mais poderosas que você possui.</p><p>Desafie-se. Saia de sua zona de conforto. É lá, fora dela, que a mágica acontece.</p><div class="quote">"A única coisa que fica entre você e seus sonhos é a ação" - Anônimo</div>`
+            },
+            {
+                leftTitle: "CAPÍTULO 4",
+                leftContent: `<h2>O Poder da Gratidão</h2><p>A gratidão é uma das emoções mais poderosas que você pode cultivar. Quando você é grato, sua perspectiva muda instantaneamente.</p>`,
+                rightTitle: "",
+                rightContent: `<p>Em vez de focar no que você não tem, comece a focar no que você já tem. Essa mudança simples de perspectiva pode transformar sua vida.</p><p>Todo dia, encontre três coisas pelas quais você é grato. Pode ser algo grande ou pequeno. O importante é cultivar o hábito de apreciar.</p><div class="quote">"Gratidão transforma o que temos em suficiente" - Aesop</div>`
+            },
+            {
+                leftTitle: "EPÍLOGO",
+                leftContent: `<h2>O Fim e o Novo Começo</h2><p>Você chegou ao final deste livro, mas na verdade, está apenas começando. O conhecimento sem ação é apenas informação.</p>`,
+                rightTitle: "",
+                rightContent: `<p>Agora é hora de colocar em prática tudo que aprendeu. Lembre-se: você é o autor da sua própria história.</p><p>Que esta jornada de sabedoria continue em cada passo que você der, em cada decisão que você tomar e em cada pessoa que você toca.</p><div class="quote">"A vida é aquilo que acontece enquanto você está ocupado fazendo outros planos" - John Lennon</div>`
+            }
+        ];
+        
+        let currentChapter = 0;
+        
+        function displayChapter(index) {
+            if (index >= 0 && index < chapters.length) {
+                currentChapter = index;
+                const chapter = chapters[index];
+                
+                document.getElementById('leftPage').innerHTML = `
+                    <div>
+                        <p class="chapter">${chapter.leftTitle}</p>
+                        ${chapter.leftContent}
+                    </div>
+                    <div class="page-number">Página ${currentChapter * 2 + 1}</div>
+                `;
+                
+                document.getElementById('rightPage').innerHTML = `
+                    <div>
+                        ${chapter.rightTitle ? '<h2>' + chapter.rightTitle + '</h2>' : ''}
+                        ${chapter.rightContent}
+                    </div>
+                    <div class="page-number">Página ${currentChapter * 2 + 2}</div>
+                `;
+                
+                document.getElementById('pageNumber').textContent = `Páginas ${currentChapter * 2 + 1} - ${currentChapter * 2 + 2} de ${chapters.length * 2}`;
+                
+                document.getElementById('prevBtn').disabled = currentChapter === 0;
+                document.getElementById('nextBtn').disabled = currentChapter === chapters.length - 1;
+            }
+        }
+        
+        function nextPage() {
+            if (currentChapter < chapters.length - 1) {
+                displayChapter(currentChapter + 1);
+            }
+        }
+        
+        function previousPage() {
+            if (currentChapter > 0) {
+                displayChapter(currentChapter - 1);
+            }
+        }
+        
+        displayChapter(0);
+    </script>
+</body>
+</html>
