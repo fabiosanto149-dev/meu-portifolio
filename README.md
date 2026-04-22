@@ -1,4 +1,5 @@
 
+
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -203,7 +204,7 @@
         </div>
     </div>
 
-    <h2 class="section-title" id="sobre">Me Descreva</h2>
+    <h2 class="section-title" id="sobre">SOBRE MIM</h2>
     <div style="max-width: 800px; margin: 0 auto; text-align: center; padding: 0 20px 100px; line-height: 1.8;">
         <p>Sou um profissional apaixonado por tecnologia e inovação, atualmente focado em Análise e Desenvolvimento de Sistemas. Minha trajetória une a visão estratégica de negócios com a precisão técnica da engenharia de software. Busco sempre entregar projetos que não apenas funcionem, mas que superem as expectativas em estética e funcionalidade.</p>
     </div>
