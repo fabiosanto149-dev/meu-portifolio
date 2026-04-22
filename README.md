@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -206,7 +207,7 @@
         </div>
     </div>
 
-    <h2 class="section-title">Me Descreva</h2>
+    <h2 class="section-title" id="sobre">SOBRE MIM</h2>
     <div style="max-width: 800px; margin: 0 auto; text-align: center; padding: 0 20px 100px; line-height: 1.8;">
         <p>Sou especialista em soluções corporativas na Vivo Empresas, atuando como parceira estratégica de grandes e pequenos negócios. Minha missão é entregar excelência através de um olhar atento às necessidades do cliente, unindo a força da marca Vivo com um atendimento humano e eficiente.</p>
     </div>
