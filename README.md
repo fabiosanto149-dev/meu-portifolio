@@ -185,7 +185,7 @@
                 <a href="https://wa.me/552730619962" class="cta-button" target="_blank">Solicitar Consultoria</a>
             </div>
             <div class="profile-area">
-                <img src="ruany.jpg" alt="Ruany" class="profile-img">
+                <img src="ruany.jpg" alt="Ruany" class="ruany.jpg">
             </div>
         </div>
     </header>
